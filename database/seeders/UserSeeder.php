@@ -23,6 +23,10 @@ class UserSeeder extends Seeder
             'email' => 'user@gmail.com',
             'password' => Hash::make('user')
         ])->assignRole(2);
+        User::create([
+            'email' => 'userbaru@gmail.com',
+            'password' => Hash::make('userbaru')
+        ])->assignRole(2);
 
         UserDetail::create([
             'user_id' => 1,
@@ -32,6 +36,15 @@ class UserSeeder extends Seeder
             'birthdate'=> '2002-10-24',
             'gender' => 2,
             'contact' => '082138682404'
+        ]);
+        UserDetail::create([
+            'user_id' => 3,
+            'first_name' => 'User',
+            'last_name' => 'Barubanget',
+            'profile' => '',
+            'birthdate'=> '2000-05-20',
+            'gender' => 1,
+            'contact' => '082131114444'
         ]);
         
         for ($i = 0; $i < 10; $i++) {

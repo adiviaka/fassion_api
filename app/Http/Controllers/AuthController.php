@@ -107,9 +107,6 @@ class AuthController extends Controller
         $detail = $validate->validated();
         $detail['user_id'] = $user->id;
         UserDetail::create($detail);
-
-
-
         $user = User::with(['userdetail', 'role'])->where('email', $request->email)->first();
 
         $respon = [
