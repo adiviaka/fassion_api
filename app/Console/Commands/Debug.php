@@ -33,5 +33,6 @@ class Debug extends Command
         // $substr = substr($file, $output);
         // Storage::delete("public/".$substr);
         // var_dump("public/".$substr);
+        // var_dump($substr);
     }
 }

@@ -44,7 +44,6 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $input = $request->all();
-
         $validator = Validator::make($input, [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -93,6 +92,7 @@ class UserController extends Controller
             $profilepicture = asset('storage/' . $uploadFile);
 
             $user->userdetail->profile = $profilepicture;
+            $user->userdetail->save();
         }
 
         $user->userdetail->first_name = $input['first_name'];
@@ -101,7 +101,6 @@ class UserController extends Controller
         $user->userdetail->gender = $input['gender'];
         $user->userdetail->contact = $input['contact'];
         // $user->userdetail->profile = $profilepicture;
-        
         $user->userdetail->save();
         $respon = [
             'status' => 'success',
@@ -117,7 +116,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        
     }
 
     public function openStore(Request $request)
