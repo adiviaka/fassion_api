@@ -10,6 +10,10 @@ class Product extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $guarded = [
+        'id'
+    ];  
+
     public function store(){
         return $this->belongsTo(Store::class);
     }

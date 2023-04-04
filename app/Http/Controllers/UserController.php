@@ -116,7 +116,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        
     }
 
     public function openStore(Request $request)

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid()->primary();
             // $table->id();
             $table->foreignUuid('store_id');
-            $table->foreignUuid('category_id');
+            $table->foreignId('category_id');
             $table->text('thumbnail');
             $table->string('name');
             $table->integer('weight');

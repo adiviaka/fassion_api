@@ -34,5 +34,10 @@ class Debug extends Command
         // Storage::delete("public/".$substr);
         // var_dump("public/".$substr);
         // var_dump($substr);
+
+        Storage::put('output.json', \App\Models\User::with('role')->whereHas('role', function ($query) {
+            $query->where('roles.id','=', 2);
+        })->get());
+        // var_dump( );
     }
 }

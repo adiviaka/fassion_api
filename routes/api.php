@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SellerController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,7 @@ Route::post('openStore', [UserController::class, 'openStore'])->middleware('auth
 Route::group(['prefix' => 'auth', 'middleware' => 'auth:sanctum'], function(){
     Route::post('logout', [AuthController::class, 'logout']);
 });
+Route::get('product',[ProductController::class, 'index']);
 
 
 
