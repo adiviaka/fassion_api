@@ -2,24 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Review;
 use App\Models\Product;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $req)
+    public function index(Request $request)
     {
-        $search = $req->input('search');
+        $search = $request->input('search');
 
         if ($search) {
             return response()->json(Product::where('name', 'like', '%'.$search.'%')->get(), 200);
         }
 
-        $category = $req->input('category');
+        $category = $request->input('category');
 
         if ($category) {
             return response()->json(Product::with('category')->whereHas('category', function($cb) use ($category){
@@ -27,9 +29,21 @@ class ProductController extends Controller
             })->get()
             , 200);
         }
-        return response()->json(Product::all(), 200);
 
-        // $review;
+        $price_min = $request->input('price_min');
+        $price_max = $request->input('price_max');
+        
+        if ($price_min && $price_max) {
+            return response()->json(Product::where('price', '>=', $price_min)->where('price', '<=', $price_max)->where('price','>=', $price_min)->orderBy('price')->get(), 200);
+        }
+
+        $review = Review::select('product_id', DB::raw('CAST(AVG(rating) AS DECIMAL(5,0)) as rating'))->groupBy('product_id')->get();
+
+        $products = $review->load('product');
+
+        return response()->json($products
+        , 200);
+        // return response()->json(Product::all(), 200);
     }
 
     /**

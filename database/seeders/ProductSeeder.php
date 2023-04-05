@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\Store;
+use App\Models\Review;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
@@ -34,7 +36,19 @@ class ProductSeeder extends Seeder
                     'store_id' => $store->random()->id
                 ]);
             }
-
+        $product = Product::all();
+        $user = User::all();
+        foreach ($product as $p) {
+            for ($i=0; $i < fake()->numberBetween(1, 10); $i++) { 
+                $review = Review::create([
+                    'user_id' => $user->random()->id,
+                    'product_id' => $p->id,
+                    'rating' => fake()->numberBetween(1, 5),
+                    'review' => fake()->text,
+                ]);
+            }
+        }
+        }
 
         }
         
@@ -75,4 +89,3 @@ class ProductSeeder extends Seeder
         //     ]);
         // }
     }
-}
