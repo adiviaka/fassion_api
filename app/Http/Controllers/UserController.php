@@ -33,9 +33,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show()
     {
-        //
+        $user = User::find(auth()->user()->id);
+        return response()->json($user->load('userdetail'), 200);
     }
 
     /**
@@ -54,6 +55,8 @@ class UserController extends Controller
             'password' => 'min:6|max:12',
             'n_password' => 'required_with:password|min:6|max:12',
         ]);
+
+        // return $validator->getRules();
 
         if ($validator->fails()) {
             $respon = [

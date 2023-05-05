@@ -26,7 +26,7 @@ class ProductController extends Controller
         if ($category) {
             return response()->json(Product::with('category')->whereHas('category', function($cb) use ($category){
                 $cb->where('name', 'like', '%'.$category.'%');
-            })->get()
+            })->orderBy('name', 'ASC')->get()
             , 200);
         }
 

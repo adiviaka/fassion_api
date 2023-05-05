@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
+        $seller = User::create([
             'email' => 'seller@gmail.com',
             'password' => Hash::make('seller')
         ])->assignRole(1);
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
         ])->assignRole(2);
 
         UserDetail::create([
-            'user_id' => 1,
+            'user_id' => $seller->id,
             'first_name' => 'Seller',
             'last_name' => 'Asli',
             'profile' => '',

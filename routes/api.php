@@ -28,10 +28,9 @@ Route::post('update/{user}', [UserController::class, 'update'])->middleware('aut
 Route::post('openStore', [UserController::class, 'openStore'])->middleware('auth:sanctum');
 Route::group(['prefix' => 'auth', 'middleware' => 'auth:sanctum'], function(){
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('user', [UserController::class, 'show']);
 });
 Route::get('product',[ProductController::class, 'index']);
-
-
 
 // Route::get('/user', function (Request $request) {
 //     return response()->json(
