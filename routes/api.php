@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -24,11 +25,20 @@ Route::post('login', [AuthController::class, 'login']);
     // return $request->user();
 Route::post('register', [AuthController::class, 'register']);
 // Route::put('update/{user}', [UserController::class, 'update'])->middleware('auth:sanctum');
-Route::post('update/{user}', [UserController::class, 'update'])->middleware('auth:sanctum');
-Route::post('openStore', [UserController::class, 'openStore'])->middleware('auth:sanctum');
-Route::group(['prefix' => 'auth', 'middleware' => 'auth:sanctum'], function(){
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::get('user', [UserController::class, 'show']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('update/{user}', [UserController::class, 'update'])->middleware('auth:sanctum');
+    Route::post('openStore', [UserController::class, 'openStore'])->middleware('auth:sanctum');
+    Route::group(['prefix' => 'auth', 'middleware' => 'auth:sanctum'], function(){
+        Route::post('logout', [AuthController::class, 'logout']);
+        Route::get('user', [UserController::class, 'show']);
+    });
+
+    Route::controller(AddressController::class)->prefix('user')->group(function () {
+        Route::get('address', [AddressController::class, 'index']);
+        Route::post('address', [AddressController::class, 'store']);
+        Route::put('address/{address}', [AddressController::class, 'update']);
+        Route::delete('address/{address}', [AddressController::class, 'destroy']);
+    });
 });
 Route::get('product',[ProductController::class, 'index']);
 

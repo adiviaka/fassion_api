@@ -13,7 +13,8 @@ class AddressController extends Controller
      */
     public function index()
     {
-        //
+        $address = auth()->user()->userdetail->address;
+        return response()->json($address, 200);
     }
 
     /**
@@ -21,7 +22,9 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request = $request->all();
+        $address = auth()->user()->userdetail->address()->create($request);
+        return response()->json($address, 201);
     }
 
     /**
@@ -37,7 +40,9 @@ class AddressController extends Controller
      */
     public function update(Request $request, Address $address)
     {
-        //
+        $request = $request->all();
+        $address->update($request);
+        return response()->json($address, 200);
     }
 
     /**
@@ -45,6 +50,8 @@ class AddressController extends Controller
      */
     public function destroy(Address $address)
     {
-        //
+        $address = auth()->user()->userdetail->address()->find($address->id);
+        $address->delete();
+        return response()->json(['message' => 'Address deleted successfully']);
     }
 }
