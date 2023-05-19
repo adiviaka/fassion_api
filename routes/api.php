@@ -28,6 +28,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('update/{user}', [UserController::class, 'update'])->middleware('auth:sanctum');
     Route::post('openStore', [UserController::class, 'openStore'])->middleware('auth:sanctum');
+    Route::get('userAuth', [UserController::class, 'show'])->middleware('auth:sanctum');
     Route::group(['prefix' => 'auth', 'middleware' => 'auth:sanctum'], function(){
         Route::post('logout', [AuthController::class, 'logout']);
         Route::get('user', [UserController::class, 'show']);

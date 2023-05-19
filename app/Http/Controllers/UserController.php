@@ -33,10 +33,12 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(Request $request)
     {
         $user = User::find(auth()->user()->id);
         return response()->json($user->load('userdetail'), 200);
+        return $request->user();
+
     }
 
     /**
