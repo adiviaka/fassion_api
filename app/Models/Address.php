@@ -10,6 +10,15 @@ class Address extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $fillable = [
+        'address',
+        'village',
+        'district',
+        'city',
+        'province',
+        'postal_code'
+    ];
+
     public function userdetail(){
         return $this->belongsTo(UserDetail::class);
     }

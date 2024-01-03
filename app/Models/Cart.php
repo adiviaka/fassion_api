@@ -10,6 +10,15 @@ class Cart extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $guarded = [
+        'id'
+    ]
+    ;
+
+    protected $casts = [
+        "quantity" => "integer",
+    ];
+
     public function product(){
         return $this->belongsTo(Product::class);
     }

@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\AddressController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SellerController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ProductController;
 
 /*
@@ -42,6 +43,9 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 Route::get('product',[ProductController::class, 'index']);
+
+Route::post('addCart', [CartController::class, 'store'])->middleware('auth:sanctum');
+Route::get('showCart', [CartController::class, 'index'])->middleware('auth:sanctum');
 
 // Route::get('/user', function (Request $request) {
 //     return response()->json(
